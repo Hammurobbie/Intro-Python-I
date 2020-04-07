@@ -18,15 +18,32 @@ and does the following:
    the format that your program expects arguments to be given.
    Then exit the program.
 
-Note: the user should provide argument input (in the initial call to run the file) and not 
+Note: the user should provide argument input (in the initial call to run the file) and not
 prompted input. Also, the brackets around year are to denote that the argument is
 optional, as this is a common convention in documentation.
 
-This would mean that from the command line you would call `python3 14_cal.py 4 2015` to 
-print out a calendar for April in 2015, but if you omit either the year or both values, 
+This would mean that from the command line you would call `python3 14_cal.py 4 2015` to
+print out a calendar for April in 2015, but if you omit either the year or both values,
 it should use today’s date to get the month and year.
 """
 
 import sys
 import calendar
 from datetime import datetime
+
+cal = input("Enter a year and month separated by commas: ").split(",")
+
+if cal == ['']:
+    month = datetime.today().month
+    year = datetime.today().year
+    calendar.prmonth(year, month)
+elif cal != [''] and len(cal) < 2:
+    year = datetime.today().year
+    month = int(cal[0])
+    calendar.prmonth(year, month)
+elif cal != [''] and len(cal) < 3:
+    year = int(cal[0])
+    month = int(cal[1])
+    calendar.prmonth(year, month)
+else:
+    print("Error: expected a date followed by year separated by commas")
